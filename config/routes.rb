@@ -19,6 +19,13 @@ Rails.application.routes.draw do
         put 'update', to: 'users#update'
       end
     end
+
+    resources :categories, only: [:index, :create] do
+      collection do
+        get ':slug', to: 'categories#show'
+        delete ':slug', to: 'categories#destroy'
+      end
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
