@@ -21,7 +21,7 @@ class Blog < ApplicationRecord
   end
 
   def body_minimum_two_images
-    if body.match(/<img src="[^"]*">/, body).count < 2
+    if body.scan(/<img src="[^"]*">/).count < 2
       errors.add(:body, 'needs to have 2 images')
     end
   end
