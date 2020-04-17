@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   enum role: %i(salesrep admin editor)
 
-  has_one_base64_attached :avatar
+  # has_one_base64_attached :avatar
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
