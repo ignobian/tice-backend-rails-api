@@ -17,14 +17,14 @@ class V1::RegistrationsController < ApplicationController
       password: registration_params[:password]
     }
 
+    # email for response
+    @email = registration_params[:email]
+
     # store the information in a jwt token
     jwt = JWT.encode({ user: hash, exp: 20.minutes.from_now.to_i }, ENV['JWT_ACCOUNT_ACTIVATION'], 'HS256')
 
-    # create an activation url the user can follow
-    activation_url = "#{ENV['CLIENT_URL']}/activate/#{jwt}?company=#{hash[:company]}"
-
     # send an email to the user with the url for account activation
-    UserMailer.with(user: hash, activation_url: activation_url).signup_activation.deliver_now
+    UserMailer.with(user: hash, token: jwt).signup_activation.deliver_now
   end
 
   private

@@ -1,0 +1,1 @@
+json.message "An email has been sent to #{@email}. Please check your mail to activate your account!"
