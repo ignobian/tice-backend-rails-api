@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :users, only: [] do
       collection do
         get 'edit', to: 'users#edit'
+        put 'update', to: 'users#update'
       end
     end
   end

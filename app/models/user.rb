@@ -5,13 +5,13 @@ class User < ApplicationRecord
 
   enum role: %i(user admin)
 
-  # has_one_base64_attached :avatar
+  has_one_base64_attached :photo
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :username, :first_name, :last_name, :email, :password, presence: true
-  validates :username, :password, length: { minimum: 6 }
+  validates :username, :first_name, :last_name, :email, presence: true
+  validates :username, length: { minimum: 6 }
 
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
