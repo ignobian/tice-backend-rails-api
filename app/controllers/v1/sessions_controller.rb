@@ -18,4 +18,10 @@ class V1::SessionsController < ApplicationController
       render json: { error: 'Email and password did not match' }, status: :unauthorized
     end
   end
+
+  private
+
+  def session_params
+    params.require(:session).permit(:email, :password)
+  end
 end
