@@ -8,6 +8,9 @@ class V1::UsersController < ApplicationController
     if !@user.update(user_params)
       return render json: { error: @user.errors.full_messages.first }
     end
+
+    # upload image
+    @user.photo.attach(data: params[:photo], filename: 'avatar.jpg', content_type: 'image/jpg') if params[:photo].present?
   end
 
   private
