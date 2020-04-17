@@ -15,6 +15,7 @@ class V1::BlogsController < ApplicationController
 
     @blog = Blog.new(blog_params)
     @blog.slug = @blog.title.slugify
+    @blog.user = @user
 
     if !@blog.save
       return render json: { error: @blog.errors.full_messages.first }
