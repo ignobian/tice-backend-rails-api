@@ -1,6 +1,11 @@
 class V1::BlogsController < ApplicationController
+  before_action :auth_required, only: [:create]
+
+  def show
+    @blog = Blog.find(params[:slug])
+  end
+
   def create
-    byebug
     # check if we have at least 1 category and tag
     return render json: { error: 'This blog needs to have at least 1 category' } if params[:categories].empty?
     return render json: { error: 'This blog needs to have at least 1 tag' } if params[:tags].empty?
