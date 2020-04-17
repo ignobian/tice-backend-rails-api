@@ -3,6 +3,9 @@ class V1::BlogsController < ApplicationController
 
   def show
     @blog = Blog.find_by(slug: params[:slug])
+    if @blog.nil?
+      return render json: { error: 'Blog not found' }
+    end
   end
 
   def create
