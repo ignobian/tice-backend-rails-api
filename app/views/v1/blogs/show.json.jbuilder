@@ -1,3 +1,6 @@
 json.key_format! camelize: :lower
 
-json.(@blog, :id, :title, :body, :categories, :tags, :keywords, :user, :created_at, :updated_at)
+json.(@blog, :id, :title, :body, :categories, :tags, :keywords, :created_at, :updated_at)
+json.user do
+  json.(@blog.user, :followers, :id, :username, :name)
+end

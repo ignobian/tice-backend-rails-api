@@ -5,10 +5,10 @@ class User < ApplicationRecord
 
   enum role: %i(user admin)
 
-  has_many :friendships
-  has_many :friends, through: :friendships
-  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
-  has_many :inverse_friends, through: :inverse_friendships, source: :user
+  has_many :followings
+  has_many :followers, through: :followings
+  # has_many :following_associations, class_name: 'Following', foreign_key: 'user_id'
+  # has_many :followings, through: :following_associations, source: :user
 
   has_one_base64_attached :photo
 
@@ -18,7 +18,7 @@ class User < ApplicationRecord
   validates :username, :first_name, :last_name, :email, presence: true
   validates :username, length: { minimum: 6 }
 
-  def full_name
+  def name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
