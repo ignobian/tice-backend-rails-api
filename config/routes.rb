@@ -12,6 +12,12 @@ Rails.application.routes.draw do
         put 'reset-password', to: 'registrations#reset_password'
       end
     end
+
+    resources :users, only: [] do
+      collection do
+        get 'edit', to: 'users#edit'
+      end
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
