@@ -10,6 +10,7 @@ class V1::CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+    @category.slug = @category.name.slugify
     if !@category.save
       return render json: { error: @category.errors.full_messages }
     end
