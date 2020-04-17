@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   after_create :send_welcome_email
 
-  enum role: %i(salesrep admin editor)
+  enum role: %i(user admin)
 
   # has_one_base64_attached :avatar
 

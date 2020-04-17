@@ -27,9 +27,25 @@ class V1::RegistrationsController < ApplicationController
     UserMailer.with(user: hash, token: jwt).signup_activation.deliver_now
   end
 
+  def create
+    begin
+      user_hash = JWT.decode(token_param, ENV['JWT_ACTIVATION_SECRET']).first['user']
+    rescue JWT::ExpiredSignature
+      return render json: { error: 'Expired link, please sign up again' }, status: :bad_request
+    end
+
+    @user = User.new(user_hash)
+
+    unless @user.valid?
+      return render json: { error: @user.errors.full_messages.first }, status: :bad_request
+    end
+
+    @user.save
+  end
+
   private
 
   def registration_params
-    params.require(:registration).permit(:first_name, :last_name, :email, :password)
+    params.require(:registration).permit(:username, :first_name, :last_name, :email, :password)
   end
 end
