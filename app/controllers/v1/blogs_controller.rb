@@ -2,7 +2,7 @@ class V1::BlogsController < ApplicationController
   before_action :auth_required, only: [:create]
 
   def show
-    @blog = Blog.find(params[:slug])
+    @blog = Blog.find_by(slug: params[:slug])
   end
 
   def create

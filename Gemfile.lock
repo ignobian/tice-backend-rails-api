@@ -182,6 +182,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    text_rank (1.2.2)
     thor (1.0.1)
     thread_safe (0.3.6)
     tzinfo (1.2.7)
@@ -218,6 +219,7 @@ DEPENDENCIES
   slugify
   spring
   spring-watcher-listen (~> 2.0.0)
+  text_rank
   tzinfo-data
 
 RUBY VERSION

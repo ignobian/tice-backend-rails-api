@@ -1,1 +1,1 @@
-json.(@blog, :id, :title, :body)
+json.(@blog, :id, :title, :body, :categories, :tags)

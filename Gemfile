@@ -24,6 +24,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise'
 
+gem 'text_rank'
+
 gem 'slugify'
 
 # Reduces boot times through caching; required in config/boot.rb
