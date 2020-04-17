@@ -32,6 +32,9 @@ class V1::BlogsController < ApplicationController
       category = Category.find(category_id)
       @blog.categories << category
     end
+
+    # photo upload
+    @blog.photo.attach(data: params[:photo], filename: 'featured_image.jpg', content_type: 'image/jpg') if params[:photo].present?
   end
 
   private
