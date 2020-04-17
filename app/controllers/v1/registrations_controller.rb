@@ -10,7 +10,7 @@ class V1::RegistrationsController < ApplicationController
 
     # transform param has into a hash with symbols
     hash = {
-      company: company_params[:company],
+      username: registration_params[:username],
       first_name: registration_params[:first_name],
       last_name: registration_params[:first_name],
       email: registration_params[:email],
@@ -30,6 +30,6 @@ class V1::RegistrationsController < ApplicationController
   private
 
   def registration_params
-    params.require(:registration).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    params.require(:registration).permit(:first_name, :last_name, :email, :password)
   end
 end
