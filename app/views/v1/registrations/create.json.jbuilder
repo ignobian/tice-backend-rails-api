@@ -1,0 +1,1 @@
+json.message 'User successfully signed up. Redirect to sign in'

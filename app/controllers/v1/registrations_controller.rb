@@ -29,18 +29,16 @@ class V1::RegistrationsController < ApplicationController
 
   def create
     begin
-      user_hash = JWT.decode(token_param, ENV['JWT_ACTIVATION_SECRET']).first['user']
+      user_hash = JWT.decode(params[:token], ENV['JWT_ACCOUNT_ACTIVATION']).first['user']
     rescue JWT::ExpiredSignature
       return render json: { error: 'Expired link, please sign up again' }, status: :bad_request
     end
 
     @user = User.new(user_hash)
 
-    unless @user.valid?
+    unless @user.save
       return render json: { error: @user.errors.full_messages.first }, status: :bad_request
     end
-
-    @user.save
   end
 
   private
