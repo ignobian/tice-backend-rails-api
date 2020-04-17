@@ -5,6 +5,8 @@ class Blog < ApplicationRecord
   has_many :blog_categories, dependent: :destroy
   has_many :categories, through: :blog_categories
 
+  has_many :claps, dependent: :destroy
+
   belongs_to :user
 
   has_one_base64_attached :photo
