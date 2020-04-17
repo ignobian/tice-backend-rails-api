@@ -1,6 +1,9 @@
 class Blog < ApplicationRecord
-  has_and_belongs_to_many :tags
-  has_and_belongs_to_many :categories
+  has_many :blog_tags, dependent: :destroy
+  has_many :tags, through: :blog_tags
+
+  has_many :blog_categories, dependent: :destroy
+  has_many :categories, through: :blog_categories
 
   has_one_base64_attached :photo
 
