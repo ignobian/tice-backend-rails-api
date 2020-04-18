@@ -8,6 +8,10 @@ class V1::BlogsController < ApplicationController
     end
   end
 
+  def from_user
+    @blogs = Blog.find_by(user: @user)
+  end
+
   def create
     # check if we have at least 1 category and tag
     return render json: { error: 'This blog needs to have at least 1 category' } if params[:categories].empty?
