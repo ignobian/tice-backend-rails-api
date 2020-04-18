@@ -30,7 +30,7 @@ class Blog < ApplicationRecord
   end
 
   def keywords
-    TextRank.extract_keywords(body_strip_html)
+    TextRank.extract_keywords(body_strip_html).keys
   end
 
   def mdesc
