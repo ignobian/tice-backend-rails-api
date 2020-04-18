@@ -10,6 +10,6 @@ end
 # featured image
 if @blog.photo.attached?
   json.photo do
-    json.(@blog.photo :key)
+    json.(@blog.photo, :key)
   end
 end

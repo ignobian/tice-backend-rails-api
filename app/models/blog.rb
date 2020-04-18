@@ -34,12 +34,12 @@ class Blog < ApplicationRecord
   end
 
   def mdesc
+
   end
 
   def excerpt
-  end
-
-  def mtitle
+    length = 320
+    body_strip_html[0..(320 - 3)] + '...'
   end
 
   private
