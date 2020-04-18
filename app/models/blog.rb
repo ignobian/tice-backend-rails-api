@@ -49,7 +49,9 @@ class Blog < ApplicationRecord
       blogs = Blog.includes(:categories).where('categories.name = ?', category.name)
       arr << blogs
     end
-    arr
+    return arr[0..2] if arr.count > 3
+
+    return arr
   end
 
   private
