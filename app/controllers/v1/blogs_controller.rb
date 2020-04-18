@@ -65,6 +65,11 @@ class V1::BlogsController < ApplicationController
     byebug
   end
 
+  def destroy
+    @blog = Blog.find_by(slug: params[:slug])
+    @blog.destroy
+  end
+
   def add_clap
     @blog = Blog.find_by(slug: params[:slug])
     @clap = Clap.new(user: @user, blog: @blog)
