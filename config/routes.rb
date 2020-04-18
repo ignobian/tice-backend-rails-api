@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :reports, only: [:create]
+    resources :reports, only: [:index, :create]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
