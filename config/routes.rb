@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         get 'list-related', to: 'blogs#list_related'
       end
       collection do
+        get 'from-user', to: 'blogs#from_user'
         put ':slug', to: 'blogs#update'
         get ':slug', to: 'blogs#show'
         put ':slug/add-clap', to: 'blogs#add_clap'
