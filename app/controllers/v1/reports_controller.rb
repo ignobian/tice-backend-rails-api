@@ -15,6 +15,11 @@ class V1::ReportsController < ApplicationController
     end
   end
 
+  def destroy
+    @report = Report.find(params[:id])
+    @report.destroy
+  end
+
   private
 
   def report_params
