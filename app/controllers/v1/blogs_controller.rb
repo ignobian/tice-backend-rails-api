@@ -1,5 +1,5 @@
 class V1::BlogsController < ApplicationController
-  before_action :auth_required, except: [:show]
+  before_action :auth_required, except: [:show, :list_related]
 
   def show
     @blog = Blog.find_by(slug: params[:slug])
@@ -53,6 +53,10 @@ class V1::BlogsController < ApplicationController
     if !@clap.save
       return render json: { error: @clap.errors.full_messages.first }
     end
+  end
+
+  def list_related
+    @blog = Blog.find(params[:id])
   end
 
   private

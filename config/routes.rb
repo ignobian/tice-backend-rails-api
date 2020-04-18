@@ -28,8 +28,10 @@ Rails.application.routes.draw do
     end
 
     resources :blogs, only: [:create] do
-      collection do
+      member do
         get 'list-related', to: 'blogs#list_related'
+      end
+      collection do
         get ':slug', to: 'blogs#show'
         put ':slug/add-clap', to: 'blogs#add_clap'
       end
