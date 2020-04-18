@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :blogs, only: [:create] do
       collection do
         get ':slug', to: 'blogs#show'
+        put ':slug/add-clap', to: 'blogs#add_clap'
       end
     end
   end
