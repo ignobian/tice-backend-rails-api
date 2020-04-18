@@ -5,6 +5,11 @@ json.claps @blog.claps.count
 # user
 json.user do
   json.(@blog.user, :followers, :id, :username, :name)
+  if @blog.user.photo.attached?
+    json.photo do
+      json.(@blog.user.photo, :key)
+    end
+  end
 end
 
 # featured image
