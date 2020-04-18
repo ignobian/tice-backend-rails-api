@@ -39,6 +39,12 @@ Rails.application.routes.draw do
         post 'not-signed-in', to: 'shares#add_not_signed_in'
       end
     end
+
+    resources :impressions, only: [:create] do
+      collection do
+        post 'not-signed-in', to: 'impressions#add_not_signed_in'
+      end
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
