@@ -2,8 +2,8 @@ class Share < ApplicationRecord
   belongs_to :user
   belongs_to :blog
 
-  enum type: %i(twitter linkedin facebook)
+  enum share_type: %i(twitter linkedin facebook)
 
-  validates :type, presence: true
-  validates :user, uniqueness: { scope: [:blog, :type], message: 'You already shared this post with this type' }
+  validates :share_type, presence: true
+  validates :user, uniqueness: { scope: [:blog, :share_type], message: 'You already shared this post with this type' }
 end

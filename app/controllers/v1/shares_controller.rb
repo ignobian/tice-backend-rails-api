@@ -15,6 +15,6 @@ class V1::SharesController < ApplicationController
   private
 
   def share_params
-    params.require(:share).permit(:type, :blog_id)
+    params.require(:share).permit(:share_type, :blog_id)
   end
 end
