@@ -1,0 +1,1 @@
+json.message 'Blog successfully destroyed'
