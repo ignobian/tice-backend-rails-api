@@ -46,6 +46,21 @@ class V1::BlogsController < ApplicationController
     @blog.photo.attach(data: params[:photo], filename: 'featured_image.jpg', content_type: 'image/jpg') if params[:photo].present?
   end
 
+  def update
+    # check if we have at least 1 category and tag
+    return render json: { error: 'This blog needs to have at least 1 category' } if params[:categories].empty?
+    return render json: { error: 'This blog needs to have at least 1 tag' } if params[:tags].empty?
+
+    @blog = Blog.find_by(slug: params[:slug])
+    return render json: { error: 'Blog not found' } if @blog.nil?
+
+    if !@blog.update(blog_params)
+      return render json: { error: @blog.errors.full_messages.first }
+    end
+
+    byebug
+  end
+
   def add_clap
     @blog = Blog.find_by(slug: params[:slug])
     @clap = Clap.new(user: @user, blog: @blog)
