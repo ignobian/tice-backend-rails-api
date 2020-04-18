@@ -43,6 +43,15 @@ class Blog < ApplicationRecord
     body_strip_html[0..(320 - 3)] + '...'
   end
 
+  def related
+    arr = []
+    categories.each do |category|
+      blogs = Blog.includes(:categories).where('categories.name = ?', category.name)
+      arr << blogs
+    end
+    arr
+  end
+
   private
 
   def body_strip_html
