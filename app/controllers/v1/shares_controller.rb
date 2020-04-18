@@ -1,4 +1,6 @@
 class V1::SharesController < ApplicationController
+  before_action :auth_required, only: [:create]
+
   def create
     @share = Share.new(share_params)
     @share.user = @user
