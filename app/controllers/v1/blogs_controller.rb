@@ -1,5 +1,5 @@
 class V1::BlogsController < ApplicationController
-  before_action :auth_required, only: [:create]
+  before_action :auth_required, except: [:show]
 
   def show
     @blog = Blog.find_by(slug: params[:slug])
@@ -44,6 +44,11 @@ class V1::BlogsController < ApplicationController
 
     # photo upload
     @blog.photo.attach(data: params[:photo], filename: 'featured_image.jpg', content_type: 'image/jpg') if params[:photo].present?
+  end
+
+  def add_clap
+    @blog = Blog.find_by(slug: params[:slug])
+    @clap = Clap.create(user: @user, blog: @blog)
   end
 
   private
