@@ -1,7 +1,7 @@
 json.key_format! camelize: :lower
 
 json.user do
-  json.(@user, :id, :full_name, :username, :email, :role)
+  json.(@user, :id, :name, :username, :email, :role)
   if @user.photo.attached?
     json.photo do
       json.key @user.photo.key
