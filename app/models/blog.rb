@@ -29,12 +29,13 @@ class Blog < ApplicationRecord
     end
   end
 
+  # methods to fetch certain data from it
   def keywords
     TextRank.extract_keywords(body_strip_html).keys
   end
 
   def mdesc
-
+    "#{title} #{body_strip_html[0..(158 - title.count)]}"
   end
 
   def excerpt
