@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: [] do
+    resources :users, only: [:index] do
       collection do
         get 'edit', to: 'users#edit'
         put 'update', to: 'users#update'
