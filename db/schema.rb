@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_18_105431) do
+ActiveRecord::Schema.define(version: 2020_04_18_112934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,16 @@ ActiveRecord::Schema.define(version: 2020_04_18_105431) do
     t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.integer "name"
+    t.bigint "user_id"
+    t.bigint "blog_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_reports_on_blog_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "shares", force: :cascade do |t|
     t.integer "share_type"
     t.bigint "user_id"
@@ -142,6 +152,8 @@ ActiveRecord::Schema.define(version: 2020_04_18_105431) do
   add_foreign_key "claps", "users"
   add_foreign_key "impressions", "blogs"
   add_foreign_key "impressions", "users"
+  add_foreign_key "reports", "blogs"
+  add_foreign_key "reports", "users"
   add_foreign_key "shares", "blogs"
   add_foreign_key "shares", "users"
 end
