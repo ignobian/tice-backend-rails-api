@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_17_205505) do
+ActiveRecord::Schema.define(version: 2020_04_18_091831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 2020_04_17_205505) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "impressions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "blog_id"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_impressions_on_blog_id"
+    t.index ["user_id"], name: "index_impressions_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -119,4 +129,6 @@ ActiveRecord::Schema.define(version: 2020_04_17_205505) do
   add_foreign_key "blogs", "users"
   add_foreign_key "claps", "blogs"
   add_foreign_key "claps", "users"
+  add_foreign_key "impressions", "blogs"
+  add_foreign_key "impressions", "users"
 end
