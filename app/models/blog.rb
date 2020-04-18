@@ -12,6 +12,7 @@ class Blog < ApplicationRecord
   has_one_base64_attached :photo
 
   validates :title, :slug, :body, presence: true
+  validates :title, :slug, uniqueness: true
   validates :title, length: { minimum: 49, maximum: 61 }
   validate :body_min_word_length, :body_minimum_two_images
 
