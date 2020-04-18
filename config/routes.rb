@@ -33,6 +33,12 @@ Rails.application.routes.draw do
         put ':slug/add-clap', to: 'blogs#add_clap'
       end
     end
+
+    resources :shares, only: [:create] do
+      collection do
+        post 'not-signed-in', to: 'shares#add_not_signed_in'
+      end
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
