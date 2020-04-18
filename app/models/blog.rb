@@ -6,6 +6,9 @@ class Blog < ApplicationRecord
   has_many :categories, through: :blog_categories
 
   has_many :claps, dependent: :destroy
+  has_many :shares, dependent: :destroy
+  has_many :impressions, dependent: :destroy
+  has_many :reports, dependent: :destroy
 
   belongs_to :user
 
