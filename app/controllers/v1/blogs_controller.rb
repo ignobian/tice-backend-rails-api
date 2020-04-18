@@ -9,7 +9,7 @@ class V1::BlogsController < ApplicationController
   end
 
   def from_user
-    @blogs = Blog.find_by(user: @user)
+    @blogs = Blog.where(user: @user)
   end
 
   def create
