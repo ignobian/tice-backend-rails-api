@@ -1,5 +1,5 @@
 class Share < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :blog
 
   enum share_type: %i(twitter linkedin facebook)
