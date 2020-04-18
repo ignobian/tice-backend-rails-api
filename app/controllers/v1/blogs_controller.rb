@@ -48,7 +48,11 @@ class V1::BlogsController < ApplicationController
 
   def add_clap
     @blog = Blog.find_by(slug: params[:slug])
-    @clap = Clap.create(user: @user, blog: @blog)
+    @clap = Clap.new(user: @user, blog: @blog)
+
+    if !@clap.save
+      return render json: { error: @clap.errors.full_messages.first }
+    end
   end
 
   private
