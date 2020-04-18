@@ -17,7 +17,7 @@ class V1::ImpressionsController < ApplicationController
 
     found = Impression.find_by(blog: @blog, user_agent: user_agent)
     unless found.nil?
-      return render json: { message: 'This user agent already impressiond this post this way' }
+      return render json: { message: 'This user agent already impressiond this post' }
     end
 
     # add the user agent
