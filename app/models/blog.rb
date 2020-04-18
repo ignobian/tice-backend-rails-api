@@ -35,7 +35,7 @@ class Blog < ApplicationRecord
   end
 
   def mdesc
-    "#{title} #{body_strip_html[0..(158 - title.count)]}"
+    "#{title} #{body_strip_html[0..(158 - title.length)]}"
   end
 
   def excerpt
