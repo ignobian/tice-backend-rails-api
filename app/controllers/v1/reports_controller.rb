@@ -1,6 +1,10 @@
 class V1::ReportsController < ApplicationController
   before_action :auth_required
 
+  def index
+    @reports = Report.all
+  end
+
   def create
     @report = Report.new(report_params)
     @blog = Blog.find(params[:blog_id])
