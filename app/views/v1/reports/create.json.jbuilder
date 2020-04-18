@@ -1,1 +1,1 @@
-json.message 'Report created'
+json.message 'Report sent to admin'
