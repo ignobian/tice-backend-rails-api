@@ -1,5 +1,7 @@
+json.key_format! camelize: :lower
+
 json.array! @users do |user|
-  json.(user, :id, :username, :name)
+  json.(user, :id, :username, :name, :blogs)
 
   json.impressions user.impressions.count
   json.shares user.shares.count

@@ -5,6 +5,11 @@ class User < ApplicationRecord
 
   enum role: %i(user admin)
 
+  has_many :impressions
+  has_many :shares
+  has_many :claps
+  has_many :blogs
+
   has_many :followings
   has_many :followers, through: :followings
   # has_many :following_associations, class_name: 'Following', foreign_key: 'user_id'
