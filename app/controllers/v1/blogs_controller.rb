@@ -87,6 +87,12 @@ class V1::BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
   end
 
+  def with_category_tag
+    @blogs = Blog.all.order('created_at DESC').offset(params[:skip]).limit(params[:limit])
+    @categories = Category.all
+    @tags = Tag.featured
+  end
+
   private
 
   def blog_params
