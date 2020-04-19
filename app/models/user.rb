@@ -12,8 +12,6 @@ class User < ApplicationRecord
 
   has_many :followings
   has_many :followers, through: :followings
-  # has_many :following_associations, class_name: 'Following', foreign_key: 'user_id'
-  # has_many :followings, through: :following_associations, source: :user
 
   has_one_base64_attached :photo
 
@@ -31,8 +29,12 @@ class User < ApplicationRecord
     followers.map { |follower| follower.id }
   end
 
+  def is_following
+    User.includes(:followings).where(followers: @user)
+  end
+
   def feed_blogs
-    Blog.where(user: followers).order('created_at DESC')
+    Blog.where(user: is_following).order('created_at DESC')
   end
 
   private
