@@ -75,7 +75,7 @@ class V1::BlogsController < ApplicationController
   end
 
   def search
-    byebug
+    @blogs = Blog.search(params[:search])
   end
 
   def add_clap
