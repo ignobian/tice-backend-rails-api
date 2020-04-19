@@ -22,6 +22,10 @@ class V1::TagsController < ApplicationController
     @tag.destroy
   end
 
+  def featured
+    @tags = Tag.joins(:blog_tags).group('blog_tags.tag_id').order('count(blog_tags.tag_id) desc').limit(10)
+  end
+
   private
 
   def tag_params
