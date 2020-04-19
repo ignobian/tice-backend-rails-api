@@ -32,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def feed_blogs
-    Blog.where(user: followers)
+    Blog.where(user: followers).order('created_at DESC')
   end
 
   private
