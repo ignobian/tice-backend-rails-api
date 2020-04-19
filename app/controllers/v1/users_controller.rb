@@ -39,6 +39,10 @@ class V1::UsersController < ApplicationController
     @users = @user.followers
   end
 
+  def email_author
+    byebug
+  end
+
   private
 
   def user_params
