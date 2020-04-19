@@ -4,7 +4,7 @@ class Tag < ApplicationRecord
   has_many :blogs, through: :blog_tags
 
   def self.featured
-    @tags = Tag.all.sort { |t, nt| nt.blog_count <=> t.blog_count }
+    @tags = Tag.all.sort { |t, nt| nt.blog_count <=> t.blog_count }.first(10)
   end
 
   def blog_count
