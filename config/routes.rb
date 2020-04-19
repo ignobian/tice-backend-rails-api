@@ -38,6 +38,7 @@ Rails.application.routes.draw do
         get 'list-related', to: 'blogs#list_related'
       end
       collection do
+        post 'with-categories-tags', to: 'blogs#with_category_tag'
         delete ':slug', to: 'blogs#destroy'
         get 'from-self', to: 'blogs#from_user'
         put ':slug', to: 'blogs#update'
