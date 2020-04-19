@@ -1,7 +1,19 @@
 json.key_format! camelize: :lower
 
 json.array! @blog.related do |blog|
-  json.(blog, :id, :title, :excerpt, :slug, :claps, :user, :created_at, :updated_at)
+  json.(blog, :id, :title, :excerpt, :slug, :claps, :created_at, :updated_at)
+
+  json.user do
+    json.(blog.user, :id, :name, :username)
+
+    json.followers user.follower_ids
+
+    if blog.user.photo.attached?
+      json.photo do
+        json.key blog.user.photo.key
+      end
+    end
+  end
 
   if blog.photo.attached?
     json.photo do

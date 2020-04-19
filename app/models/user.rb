@@ -27,6 +27,10 @@ class User < ApplicationRecord
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
+  def follower_ids
+    followers.map { |follower| follower.id }
+  end
+
   private
 
   def send_welcome_email

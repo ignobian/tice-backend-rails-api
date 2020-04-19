@@ -3,7 +3,9 @@ json.blogs do
     json.(blog, :id, :title, :slug, :tags, :categories, :claps)
 
     json.user do
-      json.(blog.user, :id, :name, :username, :followers)
+      json.(blog.user, :id, :name, :username)
+
+      json.followers user.follower_ids
 
       if blog.user.photo.attached?
         json.photo do

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [:index] do
       collection do
+        post 'toggle-follower', to: 'users#toggle_follower'
         get 'edit', to: 'users#edit'
         put 'update', to: 'users#update'
       end
