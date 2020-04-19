@@ -78,6 +78,10 @@ class V1::BlogsController < ApplicationController
     @blogs = Blog.search(params[:search])
   end
 
+  def feed
+    @blogs = @user.feed_blogs
+  end
+
   def add_clap
     @blog = Blog.find_by(slug: params[:slug])
     @clap = Clap.new(user: @user, blog: @blog)

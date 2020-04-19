@@ -31,6 +31,10 @@ class User < ApplicationRecord
     followers.map { |follower| follower.id }
   end
 
+  def feed_blogs
+    Blog.where(user: followers)
+  end
+
   private
 
   def send_welcome_email
