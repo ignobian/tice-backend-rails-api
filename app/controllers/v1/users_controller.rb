@@ -40,7 +40,10 @@ class V1::UsersController < ApplicationController
   end
 
   def email_author
-    byebug
+    @author = User.find(params[:author_id])
+    @message = params[:message]
+
+    AuthorMailer.with(from_user: @user, author: @author, message: @message).contact.deliver_now
   end
 
   private
