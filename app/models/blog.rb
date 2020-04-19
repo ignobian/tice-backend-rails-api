@@ -1,4 +1,6 @@
 class Blog < ApplicationRecord
+  include PgSearch::Model
+
   has_many :blog_tags, dependent: :destroy
   has_many :tags, through: :blog_tags
 
@@ -18,6 +20,14 @@ class Blog < ApplicationRecord
   validates :title, :slug, uniqueness: true
   validates :title, length: { minimum: 49, maximum: 61 }
   validate :body_min_word_length, :body_minimum_two_images
+
+  # search scope
+  pg_search_scope :search,
+                  against: [:title, :body],
+                  associated_against: {
+                    categories: :name,
+                    tags: :name
+                  }
 
   # custom validations
   def body_min_word_length
