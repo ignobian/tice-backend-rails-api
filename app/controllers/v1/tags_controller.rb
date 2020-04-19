@@ -23,7 +23,7 @@ class V1::TagsController < ApplicationController
   end
 
   def featured
-    @tags = Tag.joins(:blog_tags).group('blog_tags.tag_id').order('count(blog_tags.tag_id) desc').limit(10)
+    @tags = Tag.featured
   end
 
   private
