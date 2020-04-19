@@ -1,13 +1,15 @@
 json.key_format! camelize: :lower
 
-json.(@user, :id, :username, :name, :email, :about)
+json.user do
+  json.(@user, :id, :username, :name, :email, :about, :impressions, :claps, :shares)
 
-json.followers @user.follower_ids
+  json.followers @user.follower_ids
 
-# add photo
-if @user.photo.attached?
-  json.cloudinary_photo do
-    json.key @user.photo.key
+  # add photo
+  if @user.photo.attached?
+    json.cloudinary_photo do
+      json.key @user.photo.key
+    end
   end
 end
 

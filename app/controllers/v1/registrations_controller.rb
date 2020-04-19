@@ -12,7 +12,7 @@ class V1::RegistrationsController < ApplicationController
     hash = {
       username: registration_params[:username],
       first_name: registration_params[:first_name],
-      last_name: registration_params[:first_name],
+      last_name: registration_params[:last_name],
       email: registration_params[:email],
       password: registration_params[:password]
     }
