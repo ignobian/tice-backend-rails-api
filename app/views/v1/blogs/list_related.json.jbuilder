@@ -6,7 +6,7 @@ json.array! @blog.related do |blog|
   json.user do
     json.(blog.user, :id, :name, :username)
 
-    json.followers user.follower_ids
+    json.followers blog.user.follower_ids
 
     if blog.user.photo.attached?
       json.photo do
