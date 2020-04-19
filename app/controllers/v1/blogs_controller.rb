@@ -1,5 +1,9 @@
 class V1::BlogsController < ApplicationController
-  before_action :auth_required, except: [:show, :list_related]
+  before_action :auth_required, except: [:index, :show, :list_related]
+
+  def index
+    @blogs = Blog.all
+  end
 
   def show
     @blog = Blog.find_by(slug: params[:slug])

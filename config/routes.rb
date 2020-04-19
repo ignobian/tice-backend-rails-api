@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :blogs, only: [:create] do
+    resources :blogs, only: [:index, :create] do
       member do
         get 'list-related', to: 'blogs#list_related'
       end
