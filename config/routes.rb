@@ -42,6 +42,7 @@ Rails.application.routes.draw do
         get 'list-related', to: 'blogs#list_related'
       end
       collection do
+        get 'feed', to: 'blogs#feed'
         get 'search', to: 'blogs#search'
         post 'with-categories-tags', to: 'blogs#with_category_tag'
         delete ':slug', to: 'blogs#destroy'
