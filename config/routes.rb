@@ -27,6 +27,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :tags, only: [] do
+      collection do
+        get 'featured', to: 'tags#featured'
+      end
+    end
+
     resources :blogs, only: [:create] do
       member do
         get 'list-related', to: 'blogs#list_related'
