@@ -3,7 +3,11 @@ class Tag < ApplicationRecord
   has_many :blog_tags
   has_many :blogs, through: :blog_tags
 
-  def featured
-    Tag.joins(:blog_tags).group('blog_tags.tag_id').order('count(blog_tags.tag_id) desc').limit(10)
+  def self.featured
+    @tags = Tag.all.sort { |t, nt| nt.blog_count <=> t.blog_count }
+  end
+
+  def blog_count
+    blogs.count
   end
 end
