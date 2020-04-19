@@ -1,5 +1,5 @@
 class V1::BlogsController < ApplicationController
-  before_action :auth_required, except: [:index, :show, :list_related]
+  before_action :auth_required, except: [:index, :show, :list_related, :with_category_tag]
 
   def index
     @blogs = Blog.all

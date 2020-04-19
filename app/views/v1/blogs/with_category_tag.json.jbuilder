@@ -31,3 +31,5 @@ json.tags do
     json.(tag, :id, :name, :slug)
   end
 end
+
+json.size Blog.count
