@@ -1,8 +1,13 @@
 class V1::UsersController < ApplicationController
-  before_action :auth_required
+  before_action :auth_required, except: [:show]
 
   def index
     @users = User.all
+  end
+
+  def show
+    # get user from username
+    @user = User.find_by(username: params[:username])
   end
 
   def edit

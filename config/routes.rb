@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         get 'followers', to: 'users#followers'
         post 'toggle-follower', to: 'users#toggle_follower'
         get 'edit', to: 'users#edit'
+        get ':username', to: 'users#show'
         put 'update', to: 'users#update'
       end
     end
