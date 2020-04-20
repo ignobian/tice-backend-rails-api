@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
     resources :tags, only: [] do
       collection do
+        get ':slug', to: 'tags#show'
         get 'featured', to: 'tags#featured'
       end
     end
