@@ -34,7 +34,11 @@ class User < ApplicationRecord
   end
 
   def feed_blogs
-    Blog.where(user: is_following).order('created_at DESC')
+    blogs = []
+    is_following.each do |user|
+      blogs << user.blogs.order('-created_at DESC').limit(4)
+    end
+    blogs.sort { |b, nb| nb.created_at <=> b.created_at }
   end
 
   private
