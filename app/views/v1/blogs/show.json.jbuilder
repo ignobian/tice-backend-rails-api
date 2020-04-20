@@ -9,6 +9,13 @@ json.categories do
   end
 end
 
+# featured image
+if @blog.photo.attached?
+  json.photo do
+    json.key @blog.photo.key
+  end
+end
+
 # user
 json.user do
   json.(@blog.user, :followers, :id, :username, :name)
@@ -22,9 +29,3 @@ json.user do
   end
 end
 
-# featured image
-if @blog.photo.attached?
-  json.photo do
-    json.(@blog.photo, :key)
-  end
-end
