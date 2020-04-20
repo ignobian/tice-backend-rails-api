@@ -1,7 +1,14 @@
 json.key_format! camelize: :lower
 
-json.(@blog, :id, :title, :slug, :body, :categories, :tags, :mdesc, :excerpt, :keywords, :created_at, :updated_at)
+json.(@blog, :id, :title, :slug, :body, :tags, :mdesc, :excerpt, :keywords, :created_at, :updated_at)
 json.claps @blog.claps.count
+
+json.categories do
+  json.array! @blog.categories do |category|
+    json.(category, :id, :name, :slug)
+  end
+end
+
 # user
 json.user do
   json.(@blog.user, :followers, :id, :username, :name)
