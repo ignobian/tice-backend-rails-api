@@ -45,7 +45,7 @@ class V1::BlogsController < ApplicationController
     end
 
     # categories
-    params[:categories] do |category_id|
+    params[:categories].each do |category_id|
       category = Category.find(category_id)
       @blog.categories << category
     end
@@ -66,7 +66,35 @@ class V1::BlogsController < ApplicationController
       return render json: { error: @blog.errors.full_messages.first }
     end
 
-    byebug
+    # photo upload
+    @blog.photo.attach(data: params[:photo], filename: 'featured_image.jpg', content_type: 'image/jpg') if params[:photo].present?
+
+    # handle categories and tags
+    # refresh tags
+    @blog.blog_tags.destroy_all
+
+    params[:tags].each do |tag_name|
+      # check if tag is already made
+      tag = Tag.find_by(name: tag_name)
+      if tag.nil?
+        # create the tag with the name and slug
+        new_tag = Tag.create(name: tag_name, slug: tag_name.slugify)
+        # add the tag to the blog post
+        @blog.tags << new_tag
+      else
+        # add the known tag to the blog
+        @blog.tags << tag
+      end
+    end
+
+    # refresh categories
+    @blog.blog_categories.destroy_all
+
+    # categories
+    params[:categories].each do |category_id|
+      category = Category.find(category_id)
+      @blog.categories << category
+    end
   end
 
   def destroy
