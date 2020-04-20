@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [:index] do
       collection do
+        get 'stats', to: 'users#stats'
         post 'contact-blog-author', to: 'users#email_author'
         get 'followers', to: 'users#followers'
         post 'toggle-follower', to: 'users#toggle_follower'

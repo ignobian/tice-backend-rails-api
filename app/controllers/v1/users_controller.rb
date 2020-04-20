@@ -35,6 +35,9 @@ class V1::UsersController < ApplicationController
     # @user.followings << @to_be_un_followed
   end
 
+  def stats
+  end
+
   def followers
     @users = @user.followers
   end
