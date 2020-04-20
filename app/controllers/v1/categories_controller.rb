@@ -6,6 +6,9 @@ class V1::CategoriesController < ApplicationController
 
   def show
     @category = Category.find_by(slug: params[:slug])
+    if @category.nil?
+      return render json: { error: 'Category not found' }
+    end
   end
 
   def create

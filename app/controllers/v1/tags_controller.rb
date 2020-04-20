@@ -7,6 +7,9 @@ class V1::TagsController < ApplicationController
 
   def show
     @tag = Tag.find_by(slug: params[:slug])
+    if @tag.nil?
+      return render json: { error: 'Tag not found' }
+    end
   end
 
   def create
