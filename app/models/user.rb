@@ -30,15 +30,11 @@ class User < ApplicationRecord
   end
 
   def is_following
-    User.includes(:followings).where(followers: @user)
+    User.joins(:followings).where(followings: { follower: self } )
   end
 
   def feed_blogs
-    blogs = []
-    is_following.each do |user|
-      blogs << user.blogs.order('-created_at DESC').limit(4)
-    end
-    blogs.sort { |b, nb| nb.created_at <=> b.created_at }
+    Blog.where(user: is_following).order('created_at DESC').limit(10)
   end
 
   private
