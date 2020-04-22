@@ -1,4 +1,5 @@
 class UserMailer < ApplicationMailer
+  default from: ENV['EMAIL_FROM']
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -12,7 +13,7 @@ class UserMailer < ApplicationMailer
   def signup_activation
     @activation_url = "#{ENV['CLIENT_URL']}/user/activate/#{params[:token]}"
     @user = params[:user]
-    mail(to: @user[:email], subject: 'Activate your account on PDQE')
+    mail(to: @user[:email], subject: 'Activate your account on Ignob')
   end
 
   def forgot_password
