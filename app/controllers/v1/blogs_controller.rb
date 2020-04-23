@@ -1,12 +1,16 @@
 class V1::BlogsController < ApplicationController
-  before_action :auth_required, except: [:index, :show, :list_related, :with_category_tag, :search]
+  before_action :auth_required, except: [:index, :show, :list_related, :with_category_tag, :search, :comments]
 
   def index
     @blogs = Blog.all
   end
 
   def comments
-    byebug
+    @blog = Blog.find_by(slug: params[:slug])
+    if @blog.nil?
+      return render json: { error: 'Blog not found' }
+    end
+    @comments = @blog.comments
   end
 
   def show
