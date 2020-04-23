@@ -10,5 +10,4 @@ class V1::CommentsController < ApplicationController
     end
     @comments = @blog.comments
   end
-
 end
