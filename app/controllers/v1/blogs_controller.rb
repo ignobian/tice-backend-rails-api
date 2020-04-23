@@ -5,6 +5,10 @@ class V1::BlogsController < ApplicationController
     @blogs = Blog.all
   end
 
+  def comments
+    byebug
+  end
+
   def show
     @blog = Blog.find_by(slug: params[:slug])
     if @blog.nil?

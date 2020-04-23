@@ -52,6 +52,7 @@ Rails.application.routes.draw do
         get 'from-self', to: 'blogs#from_user'
         put ':slug', to: 'blogs#update'
         get ':slug', to: 'blogs#show'
+        get ':slug/comments', to: 'blogs#comments'
         put ':slug/add-clap', to: 'blogs#add_clap'
       end
     end
