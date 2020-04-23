@@ -2,12 +2,19 @@ class V1::ImpressionsController < ApplicationController
   before_action :auth_required, only: [:create]
 
   def create
-    @impression = Impression.new(impression_params)
-    @impression.user = @user
+    # check if there is already an impression
+    if !Impression.find_by(blog_id: impression_params[:blog_id], user: @user).nil?
+      return render json: { error: 'This user already viewed this page' }
+    else
+      @impression = Impression.new(impression_params)
+      @impression.user = @user
 
-    if !@impression.save
-      return render json: { message: @impression.errors.full_messages.first }
+      if !@impression.save
+        return render json: { message: @impression.errors.full_messages.first }
+      end
     end
+
+
   end
 
   def add_not_signed_in
