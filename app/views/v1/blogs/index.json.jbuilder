@@ -1,5 +1,5 @@
 json.array! @blogs do |blog|
-  json.(blog, :id, :title, :slug, :tags, :categories, :claps)
+  json.(blog, :id, :title, :slug, :tags, :categories, :claps, :mdesc)
 
   json.user do
     json.(blog.user, :id, :name, :username)

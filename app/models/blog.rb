@@ -60,12 +60,12 @@ class Blog < ApplicationRecord
   def related
     arr = []
     categories.each do |category|
-      blogs = Blog.includes(:categories).where('categories.name = ?', category.name)
-      arr << blogs
+      blogs = Blog.joins(:categories).where('categories.name = ?', category.name)
+      arr << blogs.to_a
     end
-    return arr[0..2] if arr.count > 3
+    return arr[0..2].flatten if arr.count > 3
 
-    return arr
+    return arr.flatten
   end
 
   private
