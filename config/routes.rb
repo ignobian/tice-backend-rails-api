@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     end
 
     resources :blogs, only: [:index, :create] do
+      resources :comments, only: [:create]
       member do
         get 'list-related', to: 'blogs#list_related'
       end
@@ -52,7 +53,7 @@ Rails.application.routes.draw do
         get 'from-self', to: 'blogs#from_user'
         put ':slug', to: 'blogs#update'
         get ':slug', to: 'blogs#show'
-        get ':slug/comments', to: 'blogs#comments'
+        get ':slug/comments', to: 'comments#from_blog'
         put ':slug/add-clap', to: 'blogs#add_clap'
       end
     end

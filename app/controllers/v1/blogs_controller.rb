@@ -5,14 +5,6 @@ class V1::BlogsController < ApplicationController
     @blogs = Blog.all
   end
 
-  def comments
-    @blog = Blog.find_by(slug: params[:slug])
-    if @blog.nil?
-      return render json: { error: 'Blog not found' }
-    end
-    @comments = @blog.comments
-  end
-
   def show
     @blog = Blog.find_by(slug: params[:slug])
     if @blog.nil?
