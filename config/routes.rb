@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :v1, defaults: { format: :json } do
     get 'wake-up', to: 'pages#wake_up'
+    get 'list-for-xml', to: 'pages#list_for_xml'
 
     resources :sessions, only: [:create]
     resources :registrations, only: [:index, :show, :create, :update, :destroy] do
