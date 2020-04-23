@@ -11,6 +11,7 @@ class Blog < ApplicationRecord
   has_many :shares, dependent: :destroy
   has_many :impressions, dependent: :destroy
   has_many :reports, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   belongs_to :user
 
