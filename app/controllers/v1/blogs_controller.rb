@@ -20,6 +20,7 @@ class V1::BlogsController < ApplicationController
     # check if we have at least 1 category and tag
     return render json: { error: 'This blog needs to have at least 1 category' } if params[:categories].empty?
     return render json: { error: 'This blog needs to have at least 1 tag' } if params[:tags].empty?
+    return render json: { error: 'This blog needs to have a featured image' } unless params[:photo].present?
 
     @blog = Blog.new(blog_params)
     @blog.slug = @blog.title.slugify
