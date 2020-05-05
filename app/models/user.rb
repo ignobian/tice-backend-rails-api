@@ -1,3 +1,5 @@
+require "open-uri"
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -20,6 +22,18 @@ class User < ApplicationRecord
 
   validates :username, :first_name, :last_name, :email, presence: true
   validates :username, length: { minimum: 6 }
+
+  def self.create_with_google(info)
+    user = User.create(username: info["given_name"].downcase,
+                       first_name: info["given_name"],
+                       last_name: info["family_name"],
+                       email: info["email"],
+                       password: info["jti"] + ENV["JWT_SECRET"])
+
+    file = URI.open(info["picture"])
+    user.photo.attach(io: file, filename: 'googlepic.jpg', content_type: 'image/jpg')
+    return user
+  end
 
   def name
     "#{first_name.capitalize} #{last_name.capitalize}"

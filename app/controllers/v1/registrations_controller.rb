@@ -51,12 +51,14 @@ class V1::RegistrationsController < ApplicationController
 
     if payload["email_verified"]
       @user = User.find_by(email: payload["email"])
+
       if @user.nil?
         @user = User.create_with_google(payload)
-        @token = @user.generate_jwt
-      else
-
       end
+
+      @token = @user.generate_jwt
+    else
+      return render json: { error: "Cannot validate: #{params[:email]}" }
     end
   end
 
