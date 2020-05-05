@@ -1,5 +1,3 @@
-require 'googleauth'
-
 class V1::RegistrationsController < ApplicationController
   def pre_signup
     # check if user already exists in the db
@@ -44,16 +42,21 @@ class V1::RegistrationsController < ApplicationController
   end
 
   def google_login
-    # Get the environment configured authorization
-    scopes =  ['https://www.googleapis.com/auth/cloud-platform',
-               'https://www.googleapis.com/auth/compute']
-    authorization = Google::Auth.get_application_default(scopes)
+    validator = GoogleIDToken::Validator.new
+    begin
+      payload = validator.check(params[:token_id], ENV["GOOGLE_CLIENT_ID"])
+    rescue GoogleIDToken::ValidationError => e
+      return render json: { error: "Cannot validate: #{e}" }
+    end
 
-    # Add the the access token obtained using the authorization to a hash, e.g
-    # headers.
-    byebug
-    some_headers = { token: params[:token]}
-    authorization.apply(some_headers)
+    if payload["email_verified"]
+      @user = User.find_by(email: payload["email"])
+      if @user.nil?
+        @user = User.create_with_google(payload)
+      else
+
+      end
+    end
   end
 
   private
