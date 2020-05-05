@@ -42,6 +42,18 @@ class User < ApplicationRecord
     return info
   end
 
+  def self.create_with_facebook(info)
+    user = User.create(username: info["name"].split.first.downcase,
+                       first_name: info["name"].split.first,
+                       last_name: info["name"].split.last || 'unknown',
+                       email: info["email"],
+                       password: info["id"] + ENV["JWT_SECRET"])
+
+    file = URI.open(info["picture"]["data"]["url"])
+    user.photo.attach(io: file, filename: 'facebookpic.jpg', content_type: 'image/jpg')
+    return user
+  end
+
   def name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
