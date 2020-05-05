@@ -7,9 +7,7 @@ class V1::SessionsController < ApplicationController
     end
 
     if @user&.valid_password?(session_params[:password])
-      jwt = @user.generate_jwt
-
-      @token = jwt
+      @token = @user.generate_jwt
     else
       render json: { error: 'Email and password did not match' }, status: :unauthorized
     end
