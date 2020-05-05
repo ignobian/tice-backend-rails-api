@@ -18,7 +18,7 @@ class UserMailer < ApplicationMailer
 
   def forgot_password
     @user = params[:user]
-    @reset_url = "#{ENV['CLIENT_URL']}/password/reset/#{params[:token]}"
+    @reset_url = "#{ENV['CLIENT_URL']}/user/password/reset/#{params[:token]}"
     mail(to: @user.email, subject: 'Reset your password for Ignob')
   end
 end
