@@ -88,6 +88,25 @@ class V1::RegistrationsController < ApplicationController
     UserMailer.with(user: @user, token: jwt).forgot_password.deliver_now
   end
 
+  def reset_password
+    begin
+      decoded = JWT.decode(params[:token], ENV['JWT_RESET_PASSWORD']).first
+    rescue JWT::ExpiredSignature
+      render json: { error: 'The link has expired, please resend link' }
+      return
+    end
+
+    new_password = params[:new_password]
+    # password length check
+    return render json: { error: 'Password has to be at least 7 characters long' } if new_password.length < 7
+
+    # find our user
+    @user = User.find(decoded['user_id'])
+
+    # update the user
+    @user.update!(password: new_password)
+  end
+
   private
 
   def registration_params

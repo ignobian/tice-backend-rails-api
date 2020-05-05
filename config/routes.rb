@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post 'facebook-login', to: 'registrations#facebook_login'
 
     put 'forgot-password', to: 'registrations#forgot_password'
+    put 'reset-password', to: 'registrations#reset_password'
 
     resources :sessions, only: [:create]
     resources :registrations, only: [:index, :show, :create, :update, :destroy] do
