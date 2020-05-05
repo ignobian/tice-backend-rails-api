@@ -76,6 +76,10 @@ class V1::RegistrationsController < ApplicationController
     end
   end
 
+  def forgot_password
+    byebug
+  end
+
   private
 
   def registration_params
