@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     post 'google-login', to: 'registrations#google_login'
     post 'facebook-login', to: 'registrations#facebook_login'
 
+    put 'forgot-password', to: 'registrations#forgot_password'
+
     resources :sessions, only: [:create]
     resources :registrations, only: [:index, :show, :create, :update, :destroy] do
       collection do
