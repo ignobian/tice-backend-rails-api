@@ -82,7 +82,7 @@ class V1::RegistrationsController < ApplicationController
     return render json: { error: 'User with that email not found, please sign up' } if @user.nil?
 
     # make a jwt with user id
-    jwt = JWT.encode({ user_id: @user.id, exp: 30.minutes.from_now.to_i }, ENV['JWT_PASSWORD_RESET_SECRET'], 'HS256')
+    jwt = JWT.encode({ user_id: @user.id, exp: 30.minutes.from_now.to_i }, ENV['JWT_RESET_PASSWORD'], 'HS256')
 
     # send an email with password reset link to the user
     UserMailer.with(user: @user, token: jwt).forgot_password.deliver_now
