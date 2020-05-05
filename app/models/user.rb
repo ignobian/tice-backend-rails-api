@@ -25,6 +25,14 @@ class User < ApplicationRecord
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
+  def generate_jwt
+    JWT.encode(
+      { user_id: id, exp: (2.weeks.from_now).to_i },
+      ENV['JWT_SECRET'],
+      'HS256'
+    )
+  end
+
   def follower_ids
     followers.map { |follower| follower.id }
   end

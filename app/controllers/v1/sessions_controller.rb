@@ -7,11 +7,7 @@ class V1::SessionsController < ApplicationController
     end
 
     if @user&.valid_password?(session_params[:password])
-      jwt = JWT.encode(
-        { user_id: @user.id, exp: (2.weeks.from_now).to_i },
-        ENV['JWT_SECRET'],
-        'HS256'
-      )
+      jwt = @user.generate_jwt
 
       @token = jwt
     else

@@ -53,6 +53,7 @@ class V1::RegistrationsController < ApplicationController
       @user = User.find_by(email: payload["email"])
       if @user.nil?
         @user = User.create_with_google(payload)
+        @token = @user.generate_jwt
       else
 
       end
