@@ -22,6 +22,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'google-api-client', '~> 0.34'
+
 gem 'devise'
 
 gem 'text_rank'

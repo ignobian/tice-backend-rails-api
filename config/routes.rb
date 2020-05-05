@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     get 'wake-up', to: 'pages#wake_up'
     get 'list-for-xml', to: 'pages#list_for_xml'
 
-    get 'google-login', to: 'registrations#google_login'
+    post 'google-login', to: 'registrations#google_login'
 
     resources :sessions, only: [:create]
     resources :registrations, only: [:index, :show, :create, :update, :destroy] do
