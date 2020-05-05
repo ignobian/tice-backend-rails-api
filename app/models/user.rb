@@ -1,4 +1,5 @@
 require "open-uri"
+require "json"
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -33,6 +34,12 @@ class User < ApplicationRecord
     file = URI.open(info["picture"])
     user.photo.attach(io: file, filename: 'googlepic.jpg', content_type: 'image/jpg')
     return user
+  end
+
+  def self.get_info_from_facebook_access_token(token)
+    data = URI.open("https://graph.facebook.com/me?fields=id,name,picture,email&access_token=#{token}")
+    info = JSON.parse(data)
+    return info
   end
 
   def name

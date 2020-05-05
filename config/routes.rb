@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get 'list-for-xml', to: 'pages#list_for_xml'
 
     post 'google-login', to: 'registrations#google_login'
+    post 'facebook-login', to: 'registrations#facebook_login'
 
     resources :sessions, only: [:create]
     resources :registrations, only: [:index, :show, :create, :update, :destroy] do

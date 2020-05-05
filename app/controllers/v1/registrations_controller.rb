@@ -62,6 +62,11 @@ class V1::RegistrationsController < ApplicationController
     end
   end
 
+  def facebook_login
+    info = User.get_info_from_facebook_access_token(params[:access_token])
+    byebug
+  end
+
   private
 
   def registration_params
