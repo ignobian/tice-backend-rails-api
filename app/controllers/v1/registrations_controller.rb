@@ -63,8 +63,17 @@ class V1::RegistrationsController < ApplicationController
   end
 
   def facebook_login
-    info = User.get_info_from_facebook_access_token(params[:access_token])
-    byebug
+    payload = User.get_info_from_facebook_access_token(params.permit(:access_token)[:access_token])
+    if payload["email"]
+      @user = User.find_by(email: payload["email"])
+      if @user.nil?
+        @user = User.create_with_facebook(payload)
+      end
+
+      @token = @user.generate_jwt
+    else
+      return render json: { error: "Cannot validate user" }
+    end
   end
 
   private

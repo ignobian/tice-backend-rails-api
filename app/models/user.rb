@@ -37,7 +37,7 @@ class User < ApplicationRecord
   end
 
   def self.get_info_from_facebook_access_token(token)
-    data = URI.open("https://graph.facebook.com/me?fields=id,name,picture,email&access_token=#{token}")
+    data = URI.open("https://graph.facebook.com/me?fields=id,name,picture,email&access_token=#{token}").read
     info = JSON.parse(data)
     return info
   end
