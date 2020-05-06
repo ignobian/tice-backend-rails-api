@@ -1,3 +1,5 @@
+json.key_format! camelize: :lower
+
 json.last_mod @last_mod
 
 json.categories do

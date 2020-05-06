@@ -13,4 +13,9 @@ class V1::PagesController < ApplicationController
     @categories = Category.all
     @last_mod = Blog.last_modified
   end
+
+  def get_category_xml
+    @category = Category.find_by(slug: params[:slug])
+    @blogs = @category.blogs
+  end
 end

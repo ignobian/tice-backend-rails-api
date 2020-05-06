@@ -36,7 +36,7 @@ class Blog < ApplicationRecord
                                                              user: :username
                                                            }
   def self.last_modified
-    order('updated_at DESC').last.updated_at
+    order('updated_at DESC').first.updated_at
   end
 
   # custom validations

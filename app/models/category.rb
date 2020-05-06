@@ -5,6 +5,10 @@ class Category < ApplicationRecord
   validates :name, :slug, presence: true
 
   def last_modified
-    blogs.order('updated_at DESC').last.updated_at
+    if blogs.empty?
+      updated_at
+    else
+      blogs.order('updated_at DESC').first.updated_at
+    end
   end
 end

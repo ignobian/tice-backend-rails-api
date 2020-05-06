@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     get 'wake-up', to: 'pages#wake_up'
     get 'list-for-xml', to: 'pages#list_for_xml'
     get 'index-xml', to: 'pages#index_xml'
+    get 'main-xml', to: 'pages#main_xml'
+    get 'get-category-xml/:slug', to: 'pages#get_category_xml'
 
     post 'google-login', to: 'registrations#google_login'
     post 'facebook-login', to: 'registrations#facebook_login'
