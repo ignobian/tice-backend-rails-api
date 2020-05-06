@@ -107,6 +107,10 @@ class V1::RegistrationsController < ApplicationController
     @user.update!(password: new_password)
   end
 
+  def delete_profile
+    byebug
+  end
+
   private
 
   def registration_params
