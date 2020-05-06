@@ -54,6 +54,10 @@ class User < ApplicationRecord
     return user
   end
 
+  def self.not_deleted
+    where(is_deleted: false)
+  end
+
   def name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
