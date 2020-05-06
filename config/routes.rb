@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :v1, defaults: { format: :json } do
     get 'wake-up', to: 'pages#wake_up'
     get 'list-for-xml', to: 'pages#list_for_xml'
+    get 'index-xml', to: 'pages#index_xml'
 
     post 'google-login', to: 'registrations#google_login'
     post 'facebook-login', to: 'registrations#facebook_login'

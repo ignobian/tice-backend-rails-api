@@ -35,6 +35,9 @@ class Blog < ApplicationRecord
   pg_search_scope :search_by_username, associated_against: {
                                                              user: :username
                                                            }
+  def last_modified
+    order('updated_at DESC').last.updated_at
+  end
 
   # custom validations
   def body_min_word_length

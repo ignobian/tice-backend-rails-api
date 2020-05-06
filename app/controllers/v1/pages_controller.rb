@@ -8,4 +8,9 @@ class V1::PagesController < ApplicationController
     @tags = Tag.all
     @users = User.all
   end
+
+  def index_xml
+    @categories = Category.all
+    @last_mod = Blog.last_modified
+  end
 end

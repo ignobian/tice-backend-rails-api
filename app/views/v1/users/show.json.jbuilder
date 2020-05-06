@@ -1,11 +1,7 @@
 json.key_format! camelize: :lower
 
 json.user do
-  json.(@user, :id, :username, :name, :email, :about, :impressions, :claps, :shares)
-
-  if @user.is_deleted
-    json.is_deleted true
-  end
+  json.(@user, :id, :username, :name, :email, :about, :impressions, :claps, :shares, :is_deleted)
 
   json.followers @user.follower_ids
 
