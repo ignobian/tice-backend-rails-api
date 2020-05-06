@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         get 'feed', to: 'blogs#feed'
         get 'search', to: 'blogs#search'
         post 'with-categories-tags', to: 'blogs#with_category_tag'
+        post 'advanced-search', to: 'blogs#advanced-search'
         delete ':slug', to: 'blogs#destroy'
         get 'from-self', to: 'blogs#from_user'
         put ':slug', to: 'blogs#update'
