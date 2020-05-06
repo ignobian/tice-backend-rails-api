@@ -7,7 +7,7 @@ json.user do
 
   # add photo
   if @user.photo.attached?
-    json.cloudinary_photo do
+    json.photo do
       json.key @user.photo.key
     end
   end
