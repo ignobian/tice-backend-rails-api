@@ -35,7 +35,7 @@ class Blog < ApplicationRecord
   pg_search_scope :search_by_username, associated_against: {
                                                              user: :username
                                                            }
-  def last_modified
+  def self.last_modified
     order('updated_at DESC').last.updated_at
   end
 
