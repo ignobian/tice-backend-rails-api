@@ -108,6 +108,7 @@ class V1::RegistrationsController < ApplicationController
   end
 
   def delete_profile
+
     byebug
   end
 
