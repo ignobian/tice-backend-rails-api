@@ -30,6 +30,12 @@ class Blog < ApplicationRecord
                     tags: :name
                   }
 
+  pg_search_scope :search_by_title, against: [:title]
+  pg_search_scope :search_by_body, against: [:body]
+  pg_search_scope :search_by_username, associated_against: {
+                                                             user: :username
+                                                           }
+
   # custom validations
   def body_min_word_length
     if body_strip_html.split(' ').length < 300

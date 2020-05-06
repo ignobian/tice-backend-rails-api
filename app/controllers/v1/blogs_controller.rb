@@ -107,6 +107,10 @@ class V1::BlogsController < ApplicationController
     @blogs = Blog.search(params[:search])
   end
 
+  def advanced_search
+    @blogs = Blog.send("search_by_#{params[:option]}(#{params[:query]})")
+  end
+
   def feed
     @blogs = @user.feed_blogs
   end
