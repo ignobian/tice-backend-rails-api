@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
     begin
       data = JWT.decode(header, ENV['JWT_SECRET'])[0]
 
-      @user = User.find(data['user_id'])
+      @user = User.not_deleted.find(data['user_id'])
     rescue ActiveRecord::RecordNotFound
       render json: { error: 'Not authorized to perform this action' }, status: :unauthorized
     rescue JWT::DecodeError => e

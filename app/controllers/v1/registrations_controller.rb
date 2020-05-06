@@ -3,7 +3,7 @@ class V1::RegistrationsController < ApplicationController
 
   def pre_signup
     # check if user already exists in the db
-    unless User.find_by(email: registration_params[:email]).nil?
+    unless User.not_deleted.find_by(email: registration_params[:email]).nil?
       return render json: { error: 'There is already an account with that email' }
     end
     # check if user is valid or not
@@ -52,7 +52,7 @@ class V1::RegistrationsController < ApplicationController
     end
 
     if payload["email_verified"]
-      @user = User.find_by(email: payload["email"])
+      @user = User.not_deleted.find_by(email: payload["email"])
 
       if @user.nil?
         @user = User.create_with_google(payload)
@@ -67,7 +67,7 @@ class V1::RegistrationsController < ApplicationController
   def facebook_login
     payload = User.get_info_from_facebook_access_token(params.permit(:access_token)[:access_token])
     if payload["email"]
-      @user = User.find_by(email: payload["email"])
+      @user = User.not_deleted.find_by(email: payload["email"])
       if @user.nil?
         @user = User.create_with_facebook(payload)
       end
@@ -80,7 +80,7 @@ class V1::RegistrationsController < ApplicationController
 
   def forgot_password
     # find user with submitted email
-    @user = User.find_by(email: params[:email])
+    @user = User.not_deleted.find_by(email: params[:email])
     return render json: { error: 'User with that email not found, please sign up' } if @user.nil?
 
     # make a jwt with user id
