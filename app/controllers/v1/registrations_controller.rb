@@ -1,4 +1,6 @@
 class V1::RegistrationsController < ApplicationController
+  before_action :auth_required, only: [:delete_profile]
+
   def pre_signup
     # check if user already exists in the db
     unless User.find_by(email: registration_params[:email]).nil?
@@ -108,8 +110,10 @@ class V1::RegistrationsController < ApplicationController
   end
 
   def delete_profile
-
-    byebug
+    @user.update(is_deleted: true)
+    if params[:also_delete_blogs]
+      @user.blogs.destroy_all
+    end
   end
 
   private
