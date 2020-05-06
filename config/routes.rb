@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         post 'signup-from-invite', to: 'registrations#create_on_invite'
         put 'forgot-password', to: 'registrations#forgot_password'
         put 'reset-password', to: 'registrations#reset_password'
+        delete 'delete-profile', to: 'registrations#delete_profile'
       end
     end
 
