@@ -14,6 +14,11 @@ class V1::PagesController < ApplicationController
     @last_mod = Blog.last_modified
   end
 
+  def main_xml
+    @users = User.not_deleted
+    @last_mod = Blog.last_modified
+  end
+
   def get_category_xml
     @category = Category.find_by(slug: params[:slug])
     @blogs = @category.blogs
