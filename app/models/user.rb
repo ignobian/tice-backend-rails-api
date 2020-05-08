@@ -32,8 +32,15 @@ class User < ApplicationRecord
                        email: info["email"],
                        password: info["jti"] + ENV["JWT_SECRET"])
 
+    if !user.valid?
+      # generate random username because error is probably that the username is not unique
+      user.username = SecureRandom.hex[0..10]
+      user.save
+    end
+
     file = URI.open(info["picture"])
     user.photo.attach(io: file, filename: 'googlepic.jpg', content_type: 'image/jpg')
+    byebug
     return user
   end
 
