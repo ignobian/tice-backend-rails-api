@@ -28,7 +28,6 @@ class User < ApplicationRecord
 
   def real_followings
     User.joins(:followings).where(followings: { follower: self })
-
   end
 
   def username_has_to_be_unique
@@ -112,10 +111,6 @@ class User < ApplicationRecord
   def real_followers
     followers.where(is_deleted: false)
   end
-
-  # def is_following
-  #   User.joins(:followings).where(followings: { follower: self } )
-  # end
 
   def feed_blogs
     Blog.where(user: real_followings).order('created_at DESC').limit(10)

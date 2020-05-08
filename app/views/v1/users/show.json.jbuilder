@@ -16,7 +16,7 @@ end
 # user blogs
 json.blogs do
   json.array! @user.blogs do |blog|
-    json.(blog, :id, :title, :mdesc, :slug, :tags, :categories, :claps)
+    json.(blog, :id, :title, :mdesc, :slug, :tags, :categories, :claps, :updated_at)
 
     json.user do
       json.(blog.user, :id, :name, :username)
