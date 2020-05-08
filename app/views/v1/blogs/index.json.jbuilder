@@ -1,7 +1,7 @@
 json.key_format! camelize: :lower
 
 json.array! @blogs do |blog|
-  json.(blog, :id, :title, :slug, :tags, :categories, :claps, :mdesc, :updated_at)
+  json.(blog, :id, :title, :slug, :tags, :mdesc, :categories, :claps, :mdesc, :updated_at)
 
   json.user do
     json.(blog.user, :id, :name, :username)
