@@ -23,7 +23,13 @@ class User < ApplicationRecord
 
   validates :username, :first_name, :last_name, :email, presence: true
   validates :username, length: { minimum: 6 }
-  validates :username, uniqueness: true
+  validate :username_has_to_be_unique
+
+  def username_has_to_be_unique
+    unless User.where(username: username, is_deleted: false).empty?
+      errors.add(:username, "has to be unique")
+    end
+  end
 
   def self.create_with_google(info)
     user = User.create(username: info["given_name"].downcase,

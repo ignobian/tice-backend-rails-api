@@ -19,7 +19,9 @@ class V1::UsersController < ApplicationController
     end
 
     # upload image
-    @user.photo.attach(data: params[:photo], filename: 'avatar.jpg', content_type: 'image/jpg') if params[:photo].present?
+    if params[:photo]
+      @user.photo.attach(data: params[:photo], filename: 'avatar.jpg', content_type: 'image/jpg') if params[:photo].present?
+    end
   end
 
   def toggle_follower
