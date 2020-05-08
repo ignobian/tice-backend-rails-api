@@ -24,10 +24,17 @@ class User < ApplicationRecord
   validates :username, :first_name, :last_name, :email, presence: true
   validates :username, length: { minimum: 6 }
   validate :username_has_to_be_unique
+  validate :email_has_to_be_unique
 
   def username_has_to_be_unique
-    unless User.where(username: username, is_deleted: false).empty?
-      errors.add(:username, "has to be unique")
+    if !User.where(username: username, is_deleted: false).empty?
+      errors.add(:username, "is already taken")
+    end
+  end
+
+  def email_has_to_be_unique
+    if !User.where(email: email, is_deleted: false).empty?
+      errors.add(:email, "is already taken")
     end
   end
 
@@ -46,7 +53,6 @@ class User < ApplicationRecord
 
     file = URI.open(info["picture"])
     user.photo.attach(io: file, filename: 'googlepic.jpg', content_type: 'image/jpg')
-    byebug
     return user
   end
 
@@ -76,6 +82,10 @@ class User < ApplicationRecord
 
   def self.not_deleted
     where(is_deleted: false)
+  end
+
+  def will_save_change_to_email?
+    false
   end
 
   def name
