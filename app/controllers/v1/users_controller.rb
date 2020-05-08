@@ -7,7 +7,13 @@ class V1::UsersController < ApplicationController
 
   def show
     # get user from username
-    @user = User.find_by(username: params[:username])
+    @users = User.where(username: params[:username])
+    # if we have multiple, then show the one that is not deleted (should be only 1)
+    if @users.find_by(is_deleted: false).nil?
+      @user = @users.first
+    else
+      @user = @users.find_by(is_deleted: false)
+    end
   end
 
   def edit
