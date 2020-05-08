@@ -1,6 +1,6 @@
 json.key_format! camelize: :lower
 
-json.following @user.followings.count
+json.following @user.real_followings.count
 
 json.blogs do
 
