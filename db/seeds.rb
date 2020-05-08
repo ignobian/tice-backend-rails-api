@@ -18,7 +18,10 @@ end
 
 Blog.all.each do |blog|
   if blog.photo.attached?
-    Cloudinary::Uploader.upload("http://res.cloudinary.com/ticekralt/image/upload/#{blog.photo.key}", public_id: blog.photo.key)
+    begin
+      Cloudinary::Uploader.upload("http://res.cloudinary.com/ticekralt/image/upload/#{blog.photo.key}", public_id: blog.photo.key)
+    rescue
+      puts "not found"
+    end
   end
-
 end
