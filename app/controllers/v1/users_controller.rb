@@ -33,7 +33,7 @@ class V1::UsersController < ApplicationController
   def toggle_follower
     @to_be_un_followed = User.find(params[:id])
     # add follower
-    if !@to_be_un_followed.followers.where(id: @user.id).empty?
+    if !@to_be_un_followed.real_followers.where(id: @user.id).empty?
       # remove follower
       Following.where(user: @to_be_un_followed, follower: @user).destroy_all
     else
@@ -47,7 +47,7 @@ class V1::UsersController < ApplicationController
   end
 
   def followers
-    @users = @user.followers
+    @users = @user.real_followers
   end
 
   def email_author

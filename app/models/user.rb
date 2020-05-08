@@ -101,7 +101,11 @@ class User < ApplicationRecord
   end
 
   def follower_ids
-    followers.map { |follower| follower.id }
+    real_followers.map { |follower| follower.id }
+  end
+
+  def real_followers
+    followers.where(is_deleted: false)
   end
 
   def is_following
