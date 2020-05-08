@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_many :claps, dependent: :destroy
   has_many :blogs, dependent: :destroy
 
-  has_many :followings
   has_many :followers, through: :followings
 
   has_one_base64_attached :photo
@@ -25,6 +24,10 @@ class User < ApplicationRecord
   validates :username, length: { minimum: 6 }
   validate :username_has_to_be_unique
   validate :email_has_to_be_unique
+
+  def followings
+    Following.where(user: self)
+  end
 
   def username_has_to_be_unique
     if !User.where(username: username, is_deleted: false).empty?

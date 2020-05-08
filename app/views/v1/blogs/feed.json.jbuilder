@@ -26,4 +26,3 @@ json.blogs do
     end
   end
 end
-
