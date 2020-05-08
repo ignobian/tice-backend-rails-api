@@ -57,6 +57,12 @@ class User < ApplicationRecord
                        email: info["email"],
                        password: info["id"] + ENV["JWT_SECRET"])
 
+    if !user.valid?
+      # generate random username because error is probably that the username is not unique
+      user.username = SecureRandom.hex[0..10]
+      user.save
+    end
+
     file = URI.open(info["picture"]["data"]["url"])
     user.photo.attach(io: file, filename: 'facebookpic.jpg', content_type: 'image/jpg')
     return user
