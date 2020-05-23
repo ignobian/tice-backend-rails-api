@@ -8,10 +8,11 @@ class User < ApplicationRecord
 
   enum role: %i(user admin)
 
-  has_many :impressions, dependent: :destroy
-  has_many :shares, dependent: :destroy
-  has_many :claps, dependent: :destroy
+  # has_many :impressions, dependent: :destroy
   has_many :blogs, dependent: :destroy
+  has_many :impressions, through: :blogs
+  has_many :shares, through: :blogs
+  has_many :claps, through: :blogs
 
   has_many :followings
   has_many :followers, through: :followings
