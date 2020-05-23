@@ -23,8 +23,8 @@ class User < ApplicationRecord
 
   validates :username, :first_name, :last_name, :email, presence: true
   validates :username, length: { minimum: 6 }
-  validate :username_has_to_be_unique
-  validate :email_has_to_be_unique
+  validate :username_has_to_be_unique, on: :create
+  validate :email_has_to_be_unique, on: :create
 
   def real_followings
     User.joins(:followings).where(followings: { follower: self })

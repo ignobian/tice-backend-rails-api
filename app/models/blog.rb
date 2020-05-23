@@ -74,7 +74,7 @@ class Blog < ApplicationRecord
     end
     return arr[0..2].flatten if arr.count > 3
 
-    return arr.flatten
+    return arr.flatten.uniq.reject { |blog| blog == self }
   end
 
   private
