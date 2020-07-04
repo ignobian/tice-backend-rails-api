@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_164003) do
+ActiveRecord::Schema.define(version: 2020_07_04_164057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,16 @@ ActiveRecord::Schema.define(version: 2020_07_04_164003) do
     t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.bigint "user_id"
+    t.bigint "conversation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "reports", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id"
@@ -169,6 +179,8 @@ ActiveRecord::Schema.define(version: 2020_07_04_164003) do
   add_foreign_key "comments", "users"
   add_foreign_key "impressions", "blogs"
   add_foreign_key "impressions", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "reports", "blogs"
   add_foreign_key "reports", "users"
   add_foreign_key "shares", "blogs"
