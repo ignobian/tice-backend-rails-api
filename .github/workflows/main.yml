@@ -1,0 +1,42 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:12.3
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: password1234
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
+      - name: Build and run tests
+        env:
+          DATABASE_URL: postgres://postgres@localhost:5432/pdqe-api-rails_test
+          RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          JWT_AUTH_SECRET: ${{ secrets.JWT_AUTH_SECRET }}
+          JWT_ACTIVATION_SECRET: ${{ secrets.JWT_ACTIVATION_SECRET }}
+          JWT_PASSWORD_RESET_SECRET: ${{ secrets.JWT_PASSWORD_RESET_SECRET }}
+          CLOUDINARY_URL: ${{ secrets.CLOUDINARY_URL }}
+          FROM_EMAIL: ${{ secrets.CLOUDINARY_URL }}
+          POSTMARK_API_TOKEN: ${{ secrets.POSTMARK_API_TOKEN }}
+          CLIENT_URL: localhost:3000
+          STRIPE_ENV: test
+          STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET_KEY: ${{ secrets.STRIPE_WEBHOOK_SECRET_KEY }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install
+          bundle exec rails db:setup
+          bundle exec rails test
