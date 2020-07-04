@@ -1,5 +1,5 @@
 name: CI
-on: [push, pull_request]
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -19,21 +19,23 @@ jobs:
           ruby-version: 2.6.x
       - name: Build and run tests
         env:
-          DATABASE_URL: postgres://postgres@localhost:5432/pdqe-api-rails_test
+          DATABASE_URL: postgres://postgres@localhost:5432/ignob-backend-api_test
           RAILS_ENV: test
+          APP_NAME: Ignob
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          JWT_AUTH_SECRET: ${{ secrets.JWT_AUTH_SECRET }}
-          JWT_ACTIVATION_SECRET: ${{ secrets.JWT_ACTIVATION_SECRET }}
-          JWT_PASSWORD_RESET_SECRET: ${{ secrets.JWT_PASSWORD_RESET_SECRET }}
+          CLIENT_URL: https://ignob.com
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_ACCOUNT_ACTIVATION: ${{ secrets.JWT_ACCOUNT_ACTIVATION }}
+          JWT_RESET_PASSWORD: ${{ secrets.JWT_RESET_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           CLOUDINARY_URL: ${{ secrets.CLOUDINARY_URL }}
-          FROM_EMAIL: ${{ secrets.CLOUDINARY_URL }}
-          POSTMARK_API_TOKEN: ${{ secrets.POSTMARK_API_TOKEN }}
-          CLIENT_URL: localhost:3000
-          STRIPE_ENV: test
-          STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET_KEY: ${{ secrets.STRIPE_WEBHOOK_SECRET_KEY }}
-          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDGRID_USERNAME: ${{ secrets.SENDGRID_USERNAME }}
+          SENDGRID_PASSWORD: ${{ secrets.SENDGRID_PASSWORD }}
+          FB_APP_ID: ${{ secrets.FB_APP_ID }}
+          FB_APP_SECRET: ${{ secrets.FB_APP_SECRET }}
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
