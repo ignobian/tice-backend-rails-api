@@ -47,6 +47,11 @@ gem 'cloudinary', git: 'https://github.com/gizipp/cloudinary_gem/'
 # gem 'carrierwave-base64'
 gem 'active_storage_base64'
 
+group :test do
+  gem 'factory_bot_rails'
+  gem 'faker'
+end
+
 group :development, :test do
   gem 'dotenv-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

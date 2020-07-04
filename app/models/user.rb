@@ -26,6 +26,7 @@ class User < ApplicationRecord
   validates :username, length: { minimum: 6 }
   validate :username_has_to_be_unique, on: :create
   validate :email_has_to_be_unique, on: :create
+  validates :email, format: { with: Devise.email_regexp, message: 'Please enter a valid email' }
 
   def real_followings
     User.joins(:followings).where(followings: { follower: self })

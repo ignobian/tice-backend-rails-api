@@ -3,14 +3,17 @@ class V1::RegistrationsController < ApplicationController
 
   def pre_signup
     # check if user already exists in the db
-    unless User.not_deleted.find_by(email: registration_params[:email]).nil?
-      return render json: { error: 'There is already an account with that email' }
+    if !User.not_deleted.find_by(email: registration_params[:email]).nil?
+      return render json: { error: 'There is already an account with that email' }, status: :bad_request
     end
+
     # check if user is valid or not
     @user = User.new(registration_params)
-    return render json: { error: @user.errors.full_messages.first } unless @user.valid?
+    unless @user.valid?
+      return render json: { error: @user.errors.full_messages.first }, status: :bad_request
+    end
 
-    # transform param has into a hash with symbols
+    # transform param hash into a hash with symbols
     hash = {
       username: registration_params[:username],
       first_name: registration_params[:first_name],
@@ -41,6 +44,8 @@ class V1::RegistrationsController < ApplicationController
     unless @user.save
       return render json: { error: @user.errors.full_messages.first }, status: :bad_request
     end
+
+    render 'create', status: :created
   end
 
   def google_login
