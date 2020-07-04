@@ -16,8 +16,6 @@ Rails.application.routes.draw do
     resources :registrations, only: [:index, :show, :create, :update, :destroy] do
       collection do
         post 'pre-signup', to: 'registrations#pre_signup'
-        post 'invite', to: 'registrations#invite'
-        post 'signup-from-invite', to: 'registrations#create_on_invite'
         put 'forgot-password', to: 'registrations#forgot_password'
         put 'reset-password', to: 'registrations#reset_password'
         delete 'delete-profile', to: 'registrations#delete_profile'

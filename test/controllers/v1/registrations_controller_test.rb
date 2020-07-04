@@ -67,4 +67,16 @@ class V1::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     # TODO: Fix resetting password, apparantly not working...
     # assert_equal(true, @user.valid_password?('password123'))
   end
+
+  test "Update profile" do
+    @user = User.create(username: 'Matthijs', first_name: 'Matthijs', last_name: 'Kralt', email: 'dumbass@example.com', password: 'superdupereasypassword', password_confirmation: 'superdupereasypassword')
+    @access_token = JWT.encode({ user_id: @user.id }, ENV['JWT_SECRET'], 'HS256')
+
+    changes = {
+      username: 'Matthew'
+    }
+
+    put v1_users_path, params: changes, headers: { 'Authorization': "Bearer #{@access_token}" }
+    assert_response :success
+  end
 end

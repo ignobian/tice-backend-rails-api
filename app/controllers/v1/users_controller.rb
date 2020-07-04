@@ -21,7 +21,7 @@ class V1::UsersController < ApplicationController
 
   def update
     if !@user.update(user_params)
-      return render json: { error: @user.errors.full_messages.first }
+      return render json: { error: @user.errors.full_messages.first }, status: :bad_request
     end
 
     # upload image
