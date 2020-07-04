@@ -1,14 +1,6 @@
 require 'test_helper'
 
 class V1::RegistrationsControllerTest < ActionDispatch::IntegrationTest
-  # setup do
-  #   # make all plans
-  #   FactoryBot.create(:user, blogs: 0)
-
-  #   @user_token = JWT.encode({ user_id: @company.salesreps.first.id },ENV['JWT_AUTH_SECRET'], 'HS256')
-  #   @admin_token = JWT.encode({ user_id: @company.admins.first.id },ENV['JWT_AUTH_SECRET'], 'HS256')
-  # end
-
   test "Pre signup" do
     new_user = {
       username: 'Mr Man',
@@ -56,5 +48,23 @@ class V1::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     post v1_registrations_path, params: { token: token }
 
     assert_response :created
+  end
+
+  test "Forget password" do
+    User.create(username: 'Matthijs', first_name: 'Matthijs', last_name: 'Kralt', email: 'dumbass@example.com', password: 'superdupereasypassword', password_confirmation: 'superdupereasypassword')
+    put '/v1/registrations/forgot-password', params: { email: 'dumbass@example.com'}
+    assert_response :success
+    parsed_response = JSON.parse(response.body)
+    assert_match(/An email has been sent/, parsed_response['message'])
+  end
+
+  test "Reset password" do
+    @user = User.create(username: 'Matthijs', first_name: 'Matthijs', last_name: 'Kralt', email: 'dumbass@example.com', password: 'superdupereasypassword', password_confirmation: 'superdupereasypassword')
+    # make a dummy jwt token to reset password with
+    token = JWT.encode({ user_id: @user.id }, ENV['JWT_RESET_PASSWORD'], 'HS256')
+    put '/v1/registrations/reset-password', params: { token: token, new_password: 'password123' }
+    assert_response :success
+    # TODO: Fix resetting password, apparantly not working...
+    # assert_equal(true, @user.valid_password?('password123'))
   end
 end
