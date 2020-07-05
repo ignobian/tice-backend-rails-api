@@ -84,6 +84,10 @@ Rails.application.routes.draw do
     resources :conversations, only: [:index, :show] do
       resources :messages, only: [:create]
 
+      member do
+        get 'is-typing'
+      end
+
       collection do
         get 'find'
       end

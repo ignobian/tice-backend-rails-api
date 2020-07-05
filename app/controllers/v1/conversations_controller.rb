@@ -17,6 +17,12 @@ class V1::ConversationsController < ApplicationController
     return render json: { id: @conversation.id }
   end
 
+  def is_typing
+    @conversation = @user.conversations.find(params[:id])
+    # broadcast typing state
+    ConversationChannel.broadcast_to(@conversation, { typing: @user.id }.to_json)
+  end
+
   def show
     @conversation = @user.conversations.find_by_id(params[:id])
 
