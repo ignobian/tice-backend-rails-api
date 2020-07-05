@@ -13,7 +13,7 @@ class V1::MessagesController < ApplicationController
     end
 
     # web socket stuff
-    ConversationChannel.broadcast_to(@conversation, { message: @message.content }.to_json)
+    ConversationChannel.broadcast_to(@conversation, @message.to_json)
 
     render 'create', status: :created
   end
