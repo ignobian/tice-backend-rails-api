@@ -15,11 +15,14 @@ class V1::ConversationsController < ApplicationController
 
   def show
     @conversation = @user.conversations.find_by_id(params[:id])
-    @conversation_user = @conversation.users.where.not(user: @user).first
-    @last_seen = @conversation_user.last_seen(@conversation)
 
     if @conversation.nil?
       return render json: { error: 'Not found' }, status: :not_found
     end
+
+    # find the other user that is part of the conversation
+    @conversation_user = @conversation.users.where.not(id: @user.id).first
+    @last_seen = @conversation_user.last_seen(@conversation)
+    @messages = @conversation.messages.includes(:user)
   end
 end

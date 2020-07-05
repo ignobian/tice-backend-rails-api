@@ -13,3 +13,16 @@ json.conversation_user do
   end
 end
 
+json.messages do
+  json.array! @messages do |message|
+    json.(message, :created_at, :content)
+    json.from do
+      # check if we have profile pic
+      if message.user.photo.attached?
+        json.photo message.user.photo.key
+      end
+      # get username
+      json.username message.user.username
+    end
+  end
+end
