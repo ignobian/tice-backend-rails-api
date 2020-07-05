@@ -121,6 +121,11 @@ class User < ApplicationRecord
     Blog.where(user: real_followings).order('created_at DESC').limit(10)
   end
 
+  def last_seen(conversation)
+    # get when the user has last seen a conversation (column in joint table user_conversations)
+    user_conversations.find_by(conversation: conversation).last_seen
+  end
+
   private
 
   def send_welcome_email

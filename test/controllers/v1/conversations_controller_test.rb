@@ -9,7 +9,7 @@ class V1::ConversationsControllerTest < ActionDispatch::IntegrationTest
     @access_token = JWT.encode({ user_id: @user1.id }, ENV['JWT_SECRET'], 'HS256')
   end
 
-  test "Find conversation" do
+  test "Find conversation by user" do
     get "/v1/conversations/find?with=#{@user2.id}", headers: { 'Authorization': "Bearer #{@access_token}" }
 
     assert_response :success
@@ -22,5 +22,18 @@ class V1::ConversationsControllerTest < ActionDispatch::IntegrationTest
     get "/v1/conversations/find?with=#{@user3.id}", headers: { 'Authorization': "Bearer #{@access_token}" }
     assert_response :success
     assert_equal(2, Conversation.count)
+  end
+
+  test "Find conversation" do
+    @conversation = Conversation.create(users: [@user1, @user2])
+
+    get v1_conversation_path(@conversation), headers: { 'Authorization': "Bearer #{@access_token}" }
+    assert_response :success
+
+    # user 3 cannot find this conversation
+    @access_token3 = JWT.encode({ user_id: @user3.id }, ENV['JWT_SECRET'], 'HS256')
+
+    get v1_conversation_path(@conversation), headers: { 'Authorization': "Bearer #{@access_token3}" }
+    assert_response :not_found
   end
 end

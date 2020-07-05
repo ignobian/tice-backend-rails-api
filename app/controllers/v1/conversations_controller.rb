@@ -12,4 +12,14 @@ class V1::ConversationsController < ApplicationController
 
     return render json: { id: @conversation.id }
   end
+
+  def show
+    @conversation = @user.conversations.find_by_id(params[:id])
+    @conversation_user = @conversation.users.where.not(user: @user).first
+    @last_seen = @conversation_user.last_seen(@conversation)
+
+    if @conversation.nil?
+      return render json: { error: 'Not found' }, status: :not_found
+    end
+  end
 end
