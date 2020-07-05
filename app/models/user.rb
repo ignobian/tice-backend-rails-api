@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :shares, through: :blogs
   has_many :claps, through: :blogs
 
+  has_many :user_conversations
+  has_many :conversations, through: :user_conversations
+
   has_many :followings
   has_many :followers, through: :followings
 

@@ -80,6 +80,12 @@ Rails.application.routes.draw do
     end
 
     resources :reports, only: [:index, :create, :destroy]
+
+    resources :conversations, only: [] do
+      collection do
+        get 'find'
+      end
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
