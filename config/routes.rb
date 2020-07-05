@@ -81,7 +81,9 @@ Rails.application.routes.draw do
 
     resources :reports, only: [:index, :create, :destroy]
 
-    resources :conversations, only: [:show] do
+    resources :conversations, only: [:index, :show] do
+      resources :messages, only: [:create]
+
       collection do
         get 'find'
       end

@@ -7,16 +7,15 @@ json.conversation_user do
 
   # photo
   if @user.photo.attached?
-    json.photo do
-      json.key @user.photo.key
-    end
+    json.photo @user.photo.key
   end
 end
 
 json.messages do
   json.array! @messages do |message|
-    json.(message, :created_at, :content)
+    json.(message, :id, :created_at, :content)
     json.from do
+      json.id message.user.id
       # check if we have profile pic
       if message.user.photo.attached?
         json.photo message.user.photo.key
