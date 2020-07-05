@@ -12,7 +12,9 @@ class V1::MessagesController < ApplicationController
       return render json: { error: @message.errors.full_messages.first }, status: :bad_request
     end
 
-    # TODO: web socket stuff
+    # web socket stuff
+    ConversationChannel.broadcast_to(@conversation, { message: @message.content }.to_json)
+
     render 'create', status: :created
   end
 
