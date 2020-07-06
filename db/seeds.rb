@@ -9,19 +9,3 @@
 # Category.create!(name: 'Next Js', slug: 'next-js')
 # Category.create!(name: 'React Js', slug: 'react-js')
 # Category.create!(name: 'Node Js', slug: 'node-js')
-
-User.all.each do |user|
-  if user.photo.attached?
-    Cloudinary::Uploader.upload("http://res.cloudinary.com/ticekralt/image/upload/#{user.photo.key}", public_id: user.photo.key)
-  end
-end
-
-Blog.all.each do |blog|
-  if blog.photo.attached?
-    begin
-      Cloudinary::Uploader.upload("http://res.cloudinary.com/ticekralt/image/upload/#{blog.photo.key}", public_id: blog.photo.key)
-    rescue
-      puts "not found"
-    end
-  end
-end
