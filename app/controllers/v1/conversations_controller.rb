@@ -33,6 +33,7 @@ class V1::ConversationsController < ApplicationController
     # find the other user that is part of the conversation
     @conversation_user = @conversation.users.where.not(id: @user.id).first
     @last_seen = @conversation_user.last_seen(@conversation)
-    @messages = @conversation.messages.includes(:user)
+    # get first 10 messages
+    @messages = @conversation.messages.includes(:user).order(created_at: :desc).first(15).reverse
   end
 end

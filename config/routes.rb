@@ -82,7 +82,7 @@ Rails.application.routes.draw do
     resources :reports, only: [:index, :create, :destroy]
 
     resources :conversations, only: [:index, :show] do
-      resources :messages, only: [:create]
+      resources :messages, only: [:index, :create]
 
       member do
         get 'is-typing'
