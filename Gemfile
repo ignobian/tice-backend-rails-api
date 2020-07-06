@@ -47,6 +47,8 @@ gem 'cloudinary', git: 'https://github.com/gizipp/cloudinary_gem/'
 # gem 'carrierwave-base64'
 gem 'active_storage_base64'
 
+gem 'redis'
+
 group :test do
   gem 'factory_bot_rails'
   gem 'faker'
