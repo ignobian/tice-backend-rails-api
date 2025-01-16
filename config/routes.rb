@@ -94,5 +94,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # ActionCable mount point
   mount ActionCable.server, at: '/cable'
+
+  # Root route for the application
+  # If it's an API-only app, you can use a proc response
+  root to: proc { [200, { 'Content-Type' => 'application/json' }, ['{"message": "API is live"}']] }
+
+  # Uncomment this if you want to use a controller-based root
+  # root 'pages#wake_up'
 end
