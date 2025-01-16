@@ -308,6 +308,7 @@ DEPENDENCIES
   slugify
   spring
   spring-watcher-listen
+  sprockets-rails
   text_rank
   tzinfo-data
 

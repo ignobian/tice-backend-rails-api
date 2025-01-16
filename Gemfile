@@ -22,6 +22,8 @@ gem 'jbuilder'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'sprockets-rails'
+
 gem 'google-id-token'
 
 gem 'devise'
