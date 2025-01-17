@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
     put 'forgot-password', to: 'registrations#forgot_password'
     put 'reset-password', to: 'registrations#reset_password'
-
+    get 'populate-sample-data', to: 'users#populate_sample_data'
     resources :sessions, only: [:create]
     resources :registrations, only: [:index, :show, :create, :update, :destroy] do
       collection do
@@ -30,9 +30,10 @@ Rails.application.routes.draw do
         post 'toggle-follower', to: 'users#toggle_follower'
         get 'edit', to: 'users#edit'
         get ':username', to: 'users#show'
-        put 'update', to: 'users#update'
+        put 'update', to: 'users#update' # New route for executing the rake task
       end
     end
+    
 
     resources :categories, only: [:index, :create] do
       collection do

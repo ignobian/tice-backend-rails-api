@@ -1,5 +1,5 @@
 class V1::UsersController < ApplicationController
-  before_action :auth_required, except: [:show]
+  before_action :auth_required, except: [:show, :populate_sample_data]
 
   def index
     @users = User.all
@@ -55,6 +55,57 @@ class V1::UsersController < ApplicationController
     @message = params[:message]
 
     AuthorMailer.with(from_user: @user, author: @author, message: @message).contact.deliver_now
+  end
+
+  def populate_sample_data
+    pwd = 'testing'
+
+    # Free plan user
+    admin = User.new(
+      first_name: 'Mr', 
+      last_name: 'Admin', 
+      username: 'awesomeadmin', 
+      password: pwd, 
+      password_confirmation: pwd, 
+      email: 'admin@ignob.com', 
+      role: 1
+    )
+    admin.save!
+
+    blog1 = Blog.new(
+      title: 'A new blog post about nextjs and the awesome works of next',
+      slug: 'sample-blog-post-next',
+      body: '<p>Sample content...</p>',
+      user: admin
+    )
+    blog1.save!
+
+    user = User.new(
+      first_name: 'Mr', 
+      last_name: 'User', 
+      username: 'awesomeman', 
+      password: pwd, 
+      password_confirmation: pwd, 
+      email: 'user@ignob.com', 
+      role: 0
+    )
+    user.save!
+
+    blog2 = Blog.new(
+      title: 'A new blog post about reactjs and the awesome works of react',
+      slug: 'sample-blog-post-react',
+      body: '<p>Sample content...</p>',
+      user: user
+    )
+    blog2.save!
+
+    render json: {
+      message: "Sample data generated successfully!",
+      users_count: User.count,
+      blogs_count: Blog.count
+    }, status: :created
+  rescue StandardError => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private
