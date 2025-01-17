@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: ignob-backend-api_production
-  username: ignob-backend-api
-  password: <%= ENV['IGNOB-BACKEND-API_DATABASE_PASSWORD'] %>
+  database: tice_lcel
+  username: tice_lcel_user
+  password: L3Lp2rVOCU17picfbKjimx5ECwD9UTCK
+  port: 5432
