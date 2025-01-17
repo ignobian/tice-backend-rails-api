@@ -84,4 +84,3 @@ production:
   database: tice_lcel
   username: tice_lcel_user
   password: L3Lp2rVOCU17picfbKjimx5ECwD9UTCK
-  port: 5432
